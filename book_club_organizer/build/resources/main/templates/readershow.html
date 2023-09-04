@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:wght@400;800&display=swap" rel="stylesheet">
+    <title>Book Club</title>
+    <style>
+        * {
+            font-family: 'Montserrat', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+        }
+        h1 {
+            font-weight:800;
+        }
+        h2 {
+            font-weight: 600;
+        }
+        a {
+            cursor: pointer;
+        }
+
+        .rounded-table {
+            border-radius: 0.4rem;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="min-vh-100">
+<header class="container text-center border rounded-bottom p-2 mb-1 mt-1">
+    <h1>Book Club</h1>
+</header>
+<main class="container border rounded-top">
+    <div class="row">
+        <div class="col-sm text-center d-flex justify-content-center align-items-center p-5">
+            <img src="/images/girl_on_book.svg" class="img-fluid m-5">
+
+        </div>
+        <div class="col-sm text-center d-flex justify-content-center pb-5 mt-3">
+            <div class="border rounded w-100">
+                <h2 class="text-center mt-5 mb-3">Reader List</h2>
+                <div class="container">
+                    <div class="row mt-4">
+                        <div class="d-flex mb-3 gap-3">
+                            <div class="input-group w-50">
+                                <a th:href="@{/reader/add}">
+                                    <button class="btn btn-dark" type="button" id="add-reader-btn">
+                                        <i class="fas fa-square-plus"></i> Add Reader
+                                    </button>
+                                </a>
+
+                            </div>
+
+                            <form action="/readers/search" method="post" class="flex-grow-1 ml-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="query" placeholder="Name, District or Email!" aria-label="Search for readers" aria-describedby="search-btn">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-dark" type="submit" id="search-btn">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-12">
+                            <table class="table table-striped table-hover table-bordered rounded-table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Reader Name</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">District</th>
+                                    <th scope="col">Email</th>
+                                    <th colspan="2" scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr  th:each="reader : ${readerslist}">
+                                        <td th:text="${reader.name}"></td>
+                                        <td th:text="${reader.age}"></td>
+                                        <td th:text="${reader.district}"></td>
+                                        <td th:text="${reader.email}"></td>
+                                        <td><a  th:href="'/reader/edit/' + ${reader.id}"><i class="fas fa-edit text-dark"></i></a></td>
+                                        <td><a  th:href="'/reader/delete/' + ${reader.id}"><i class="fas fa-trash-alt text-danger"></i></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<script src="https://kit.fontawesome.com/c045880d2c.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
